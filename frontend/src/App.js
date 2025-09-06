@@ -1,10 +1,14 @@
-import './App.css';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import ThemeRoutes from './routes';
+import ToastComponent from './utils/toast-Components';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      Helloo
-    </div>
+    <BrowserRouter>
+      <ThemeRoutes />
+       <ToastComponent />
+    </BrowserRouter>
   );
 }
 
