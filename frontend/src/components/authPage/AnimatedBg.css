@@ -1,0 +1,354 @@
+/* Animated Background Elements */
+.animated-bg {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.floating-icon {
+    position: absolute;
+    opacity: 0.2;
+    animation: float 8s ease-in-out infinite;
+}
+
+.floating-icon:nth-child(1) {
+    left: 10vw;
+    top: 20vh;
+    animation-delay: 0s;
+    animation-duration: 8s;
+}
+
+.floating-icon:nth-child(2) {
+    left: 80vw;
+    top: 30vh;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+
+.floating-icon:nth-child(3) {
+    left: 15vw;
+    top: 70vh;
+    animation-delay: 4s;
+    animation-duration: 10s;
+}
+
+.floating-icon:nth-child(4) {
+    left: 75vw;
+    top: 60vh;
+    animation-delay: 1.5s;
+    animation-duration: 9s;
+}
+
+.floating-icon:nth-child(5) {
+    left: 5vw;
+    top: 50vh;
+    animation-delay: 3.5s;
+    animation-duration: 11s;
+}
+
+.floating-icon:nth-child(6) {
+    left: 85vw;
+    top: 15vh;
+    animation-delay: 5s;
+    animation-duration: 7s;
+}
+
+.floating-icon:nth-child(7) {
+    left: 25vw;
+    top: 80vh;
+    animation-delay: 6s;
+    animation-duration: 13s;
+}
+
+.floating-icon:nth-child(8) {
+    left: 70vw;
+    top: 10vh;
+    animation-delay: 7.5s;
+    animation-duration: 8.5s;
+}
+
+@keyframes float {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(0) rotate(0deg);
+    }
+
+    25% {
+        opacity: 0.3;
+        transform: scale(1) translateY(-30px) rotate(5deg);
+    }
+
+    50% {
+        opacity: 0.1;
+        transform: scale(1.2) translateY(0) rotate(-5deg);
+    }
+
+    75% {
+        opacity: 0.25;
+        transform: scale(1) translateY(30px) rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.5) translateY(0) rotate(0deg);
+    }
+}
+
+.chart-bars {
+    position: absolute;
+    top: 25%;
+    right: 32px;
+    opacity: 0.3;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.chart-bar {
+    width: 6px;
+    border-radius: 2px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    animation: chartPulse 6s ease-in-out infinite;
+}
+
+.chart-bar:nth-child(1) {
+    background: linear-gradient(to top, #3b82f6, #60a5fa);
+    animation-delay: 0s;
+}
+
+.chart-bar:nth-child(2) {
+    background: linear-gradient(to top, #10b981, #34d399);
+    animation-delay: 0.5s;
+}
+
+.chart-bar:nth-child(3) {
+    background: linear-gradient(to top, #8b5cf6, #a78bfa);
+    animation-delay: 1s;
+}
+
+.chart-bar:nth-child(4) {
+    background: linear-gradient(to top, #ec4899, #f472b6);
+    animation-delay: 1.5s;
+}
+
+.chart-bar:nth-child(5) {
+    background: linear-gradient(to top, #f97316, #fb923c);
+    animation-delay: 2s;
+}
+
+@keyframes chartPulse {
+    0% {
+        height: 0;
+    }
+
+    25% {
+        height: 40px;
+    }
+
+    50% {
+        height: 60px;
+    }
+
+    75% {
+        height: 30px;
+    }
+
+    100% {
+        height: 0;
+    }
+}
+
+.floating-amounts {
+    position: absolute;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    animation: floatUp 15s linear infinite;
+}
+
+.amount-1 {
+    left: 15%;
+    top: 30%;
+    color: #10b981;
+    animation-delay: 0s;
+}
+
+.amount-2 {
+    left: 33%;
+    top: 30%;
+    color: #3b82f6;
+    animation-delay: 2s;
+}
+
+.amount-3 {
+    left: 51%;
+    top: 30%;
+    color: #8b5cf6;
+    animation-delay: 4s;
+}
+
+.amount-4 {
+    left: 69%;
+    top: 30%;
+    color: #ec4899;
+    animation-delay: 6s;
+}
+
+.amount-5 {
+    left: 87%;
+    top: 30%;
+    color: #f97316;
+    animation-delay: 8s;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0);
+    }
+
+    10% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 0.2;
+        transform: translateY(-100px) translateX(20px);
+    }
+
+    90% {
+        opacity: 0.4;
+        transform: translateY(-200px) translateX(-15px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-300px) translateX(0);
+    }
+}
+
+.credit-card {
+    position: absolute;
+    top: 75%;
+    left: 16px;
+    width: 80px;
+    height: 48px;
+    background: linear-gradient(135deg, #a855f7 0%, #3b82f6 50%, #4f46e5 100%);
+    border-radius: 8px;
+    opacity: 0.6;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    animation: slideCard 20s linear infinite;
+}
+
+.credit-card::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 40px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+}
+
+.credit-card::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 12px;
+    height: 12px;
+    background: #fbbf24;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+@keyframes slideCard {
+    0% {
+        transform: translateX(-100px) rotate(-10deg);
+    }
+
+    25% {
+        transform: translateX(25vw) rotate(0deg);
+    }
+
+    50% {
+        transform: translateX(50vw) rotate(5deg);
+    }
+
+    75% {
+        transform: translateX(75vw) rotate(0deg);
+    }
+
+    100% {
+        transform: translateX(100vw) rotate(-5deg);
+    }
+}
+
+.pie-chart {
+    position: absolute;
+    bottom: 25%;
+    left: 32px;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    opacity: 0.4;
+    background: conic-gradient(from 0deg, #ef4444 0deg 90deg, #10b981 90deg 180deg, #3b82f6 180deg 270deg, #8b5cf6 270deg 360deg);
+    animation: rotatePie 30s linear infinite;
+}
+
+.pie-chart::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+}
+
+@keyframes rotatePie {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.particles {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    opacity: 0.3;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    animation: particleFloat 6s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 0;
+        transform: scale(0) translate(0, 0);
+    }
+
+    25% {
+        opacity: 0.6;
+        transform: scale(1.5) translate(20px, -20px);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: scale(1) translate(40px, -40px);
+    }
+
+    75% {
+        opacity: 0.6;
+        transform: scale(1.2) translate(20px, -60px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0) translate(0, -80px);
+    }
+}

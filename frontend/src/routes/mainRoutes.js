@@ -4,10 +4,10 @@ import MinimalLayout from '../layout/MinimalLayout';
 
 const MainRoutes = {
     path: '/',
-    element: <MinimalLayout />,  // ✅ changed here
+    element: <MinimalLayout />,
     children: [
         {
-            path: 'dashboard',
+            path: 'home',
             element: <DashboardContent />
         },
         // {
