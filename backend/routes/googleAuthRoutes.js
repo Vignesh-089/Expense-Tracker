@@ -30,7 +30,8 @@ router.get(
   "/callback",
   passport.authenticate("google", { failureRedirect: "http://localhost:3000/login" }),
   (req, res) => {
-    res.redirect("http://localhost:3000/dashboard");
+    const token = "your_generated_jwt"; // generate using JWT with user info
+    res.redirect(`http://localhost:3000/home?token=${token}&name=${req.user.name}&email=${req.user.email}`);
   }
 );
 
