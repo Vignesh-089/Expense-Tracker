@@ -268,15 +268,9 @@ const LogIn = () => {
       const { token, user } = res.data;
 
       if (token) {
-        if (rememberMe) {
-          localStorage.setItem("token", token);
-          localStorage.setItem("name", user?.name || "");
-          localStorage.setItem("email", user?.email || "");
-        } else {
-          sessionStorage.setItem("token", token);
-          sessionStorage.setItem("name", user?.name || "");
-          sessionStorage.setItem("email", user?.email || "");
-        }
+        localStorage.setItem("token", token);
+        localStorage.setItem("name", user?.name || "");
+        localStorage.setItem("email", user?.email || "");
       }
 
       console.log("Login successful:", res.data);

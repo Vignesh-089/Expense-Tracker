@@ -22,8 +22,8 @@ import ThemeToggle from "../ThemeToggle/ThemeToggle"; // <-- Add this import
 
 export default function Header({ onSidebarToggle, user }) {
     const [anchorEl, setAnchorEl] = useState(null);
-    const [userName, setUserName] = useState(sessionStorage.getItem('name'));
-    const [userEmail, setUserEmail] = useState(sessionStorage.getItem('email'));
+    const [userName] = useState(localStorage.getItem('name'));
+    const [userEmail] = useState(localStorage.getItem('email'));
     const navigate = useNavigate();
 
     const handleAvatarClick = (event) => {
@@ -38,6 +38,7 @@ export default function Header({ onSidebarToggle, user }) {
         localStorage.clear();
         sessionStorage.clear();
         navigate("/logIn");
+        console.log("User logged out")
     }
 
     const open = Boolean(anchorEl);

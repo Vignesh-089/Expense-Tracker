@@ -62,6 +62,10 @@ const ExpenseTrackerRegistration = () => {
     navigate("/logIn")
   }
 
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:5000/auth/google";
+  };
+
   const handleRegister = async () => {
     try {
       const payload = {
@@ -460,6 +464,7 @@ const ExpenseTrackerRegistration = () => {
               fullWidth
               variant="outlined"
               startIcon={<Google />}
+              onClick={handleGoogleLogin}
               sx={{
                 py: 1,
                 fontSize: 14,

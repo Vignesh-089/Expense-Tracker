@@ -1,6 +1,8 @@
 
 import DashboardContent from '../components/dashboard/dashBoard';
 import MinimalLayout from '../layout/MinimalLayout';
+import Expense from '../views/pages/expense';
+import Income from '../views/pages/income';
 
 const MainRoutes = {
     path: '/',
@@ -10,14 +12,14 @@ const MainRoutes = {
             path: 'home',
             element: <DashboardContent />
         },
-        // {
-        //     path: 'pages/income',
-        //     element: <Income />
-        // },
-        // {
-        //     path: 'pages/expense',
-        //     element: <Expense />
-        // },
+        {
+            path: 'income',
+            element: <Income />
+        },
+        {
+            path: 'expenses',
+            element: <Expense />
+        },
         // {
         //     path: 'pages/userInfo',
         //     element: <UserInfo />

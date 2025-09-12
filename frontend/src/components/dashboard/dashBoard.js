@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Typography,
@@ -17,8 +17,27 @@ import {
   TrackChanges,
   CreditCard,
 } from "@mui/icons-material";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function DashboardContent() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const token = params.get("token");
+    const name = params.get("name");
+    const email = params.get("email");
+
+    if (token) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
+
+      navigate("/home", { replace: true });
+    }
+  }, [location, navigate]);
+
   return (
     <Box
       sx={{
