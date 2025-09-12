@@ -23,6 +23,7 @@ import {
 } from '@mui/icons-material';
 import { styled, keyframes } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
+import API from '../../utils/api';
 
 // Keyframe animations
 const backgroundShift = keyframes`
@@ -223,18 +224,20 @@ const SubmitButton = styled(Button)({
 const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get('email');
-    const password = formData.get('password');
-    
-    console.log('Sign in attempt:', { email, password, rememberMe });
-    alert('Sign in functionality would be implemented here!');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleClickShowPassword = () => {
@@ -251,7 +254,39 @@ const LogIn = () => {
 
   const handleRegister = () => {
     navigate("/register");
-  }
+  };
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await API.post("/auth/login", {
+        email: formData.email,
+        password: formData.password,
+      });
+
+      const { token, user } = res.data;
+
+      if (token) {
+        if (rememberMe) {
+          localStorage.setItem("token", token);
+          localStorage.setItem("name", user?.name || "");
+          localStorage.setItem("email", user?.email || "");
+        } else {
+          sessionStorage.setItem("token", token);
+          sessionStorage.setItem("name", user?.name || "");
+          sessionStorage.setItem("email", user?.email || "");
+        }
+      }
+
+      console.log("Login successful:", res.data);
+
+      navigate("/home");
+    } catch (error) {
+      console.error("Login Failed:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "Login failed. Please try again.");
+    }
+  };
 
   return (
     <Box sx={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
@@ -259,14 +294,14 @@ const LogIn = () => {
       <AnimatedBackground>
         <GradientBackground />
         <AnimatedOverlay />
-        
+
         {/* Floating Elements - Only show on desktop */}
         {!isMobile && (
           <>
             {/* Floating Bar Chart */}
-            <FloatingElement 
-              animation={`${float1} 25s infinite`} 
-              top="2.5rem" 
+            <FloatingElement
+              animation={`${float1} 25s infinite`}
+              top="2.5rem"
               left="2.5rem"
             >
               <BarChart>
@@ -299,15 +334,15 @@ const LogIn = () => {
             </FloatingElement>
 
             {/* Floating Circular Progress */}
-            <FloatingElement 
-              animation={`${float2} 18s infinite 2s`} 
-              top="5rem" 
+            <FloatingElement
+              animation={`${float2} 18s infinite 2s`}
+              top="5rem"
               right="5rem"
             >
               <CircularProgress>
-                <Box sx={{ 
-                  position: 'relative', 
-                  width: '3rem', 
+                <Box sx={{
+                  position: 'relative',
+                  width: '3rem',
                   height: '3rem',
                   display: 'flex',
                   alignItems: 'center',
@@ -325,9 +360,9 @@ const LogIn = () => {
             </FloatingElement>
 
             {/* Floating Metric Cards */}
-            <FloatingElement 
-              animation={`${float3} 22s infinite 4s`} 
-              bottom="8rem" 
+            <FloatingElement
+              animation={`${float3} 22s infinite 4s`}
+              bottom="8rem"
               left="4rem"
             >
               <MetricCard>
@@ -376,12 +411,14 @@ const LogIn = () => {
             </Box>
 
             {/* Form */}
-            <Box component="form" onSubmit={handleSubmit}>
+            <Box component="form" onSubmit={handleSignIn}>
               <TextField
                 fullWidth
                 required
                 id="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
                 label="Email Address"
                 type="email"
                 placeholder="Enter your email"
@@ -414,6 +451,8 @@ const LogIn = () => {
                 id="password"
                 name="password"
                 label="Password"
+                value={formData.password}
+                onChange={handleChange}
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Enter your password"
                 variant="outlined"
@@ -455,10 +494,10 @@ const LogIn = () => {
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <FormControlLabel
                   control={
-                    <Checkbox 
-                      checked={rememberMe} 
+                    <Checkbox
+                      checked={rememberMe}
                       onChange={handleRememberMeChange}
-                      sx={{ 
+                      sx={{
                         color: '#22d3ee',
                         '&.Mui-checked': {
                           color: '#22d3ee',
@@ -472,9 +511,9 @@ const LogIn = () => {
                     </Typography>
                   }
                 />
-                <Button 
-                  variant="text" 
-                  sx={{ 
+                <Button
+                  variant="text"
+                  sx={{
                     color: '#22d3ee',
                     fontSize: '0.875rem',
                     '&:hover': {
@@ -488,8 +527,8 @@ const LogIn = () => {
                 </Button>
               </Box>
 
-              <SubmitButton 
-                type="submit" 
+              <SubmitButton
+                type="submit"
                 variant="contained"
                 endIcon={<ArrowForward />}
               >
@@ -501,9 +540,9 @@ const LogIn = () => {
             <Box sx={{ textAlign: 'center', marginTop: '1.5rem' }}>
               <Typography variant="body2" sx={{ color: 'rgb(148, 163, 184)' }}>
                 Don't have an account?{' '}
-                <Button 
-                  variant="text" 
-                  sx={{ 
+                <Button
+                  variant="text"
+                  sx={{
                     color: '#22d3ee',
                     '&:hover': {
                       color: 'rgb(103, 232, 249)',

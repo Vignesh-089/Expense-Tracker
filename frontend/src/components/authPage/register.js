@@ -25,13 +25,30 @@ import {
 } from '@mui/icons-material';
 import './AnimatedBg.css';
 import { useNavigate } from 'react-router-dom';
+import API from '../../utils/api';
+import { showToast } from '../../utils/toast-Components';
 
 const ExpenseTrackerRegistration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    role: ''
+  })
   const navigate = useNavigate();
   //   const theme = useTheme();
   //   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -45,11 +62,24 @@ const ExpenseTrackerRegistration = () => {
     navigate("/logIn")
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    console.log('Registration data:', Object.fromEntries(formData));
-    alert('Registration form submitted! Check console for data.');
+  const handleRegister = async () => {
+    try {
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: "user",
+      };
+
+      const result = await API.post("/auth/register", payload);
+      setFormData(result)
+      console.log("Registration successful:", result);
+      showToast("Registration Successfull")
+      navigate("/login");
+    } catch (error) {
+      console.error("Registration Failed:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "Registration failed. Please try again.");
+    }
   };
 
   return (
@@ -236,13 +266,15 @@ const ExpenseTrackerRegistration = () => {
           </Box>
 
           <Box sx={{ p: 3 }}>
-            <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box component="form" onSubmit={handleRegister} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {/* Full Name */}
               <TextField
                 fullWidth
                 size="small"
                 label="Full Name"
-                name="fullName"
+                value={formData.name}
+                name="name"
+                onChange={handleChange}
                 placeholder="Enter your full name"
                 required
                 sx={{
@@ -269,8 +301,10 @@ const ExpenseTrackerRegistration = () => {
                 fullWidth
                 label="Email Address"
                 size="small"
+                value={formData.email}
                 name="email"
                 type="email"
+                onChange={handleChange}
                 placeholder="Enter your email"
                 required
                 sx={{
@@ -298,6 +332,8 @@ const ExpenseTrackerRegistration = () => {
                 label="Password"
                 size="small"
                 name="password"
+                onChange={handleChange}
+                value={formData.password}
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Create a password"
                 required
@@ -339,6 +375,8 @@ const ExpenseTrackerRegistration = () => {
                 label="Confirm Password"
                 name="confirmPassword"
                 size="small"
+                onChange={handleChange}
+                value={formData.confirmPassword}
                 type={showConfirmPassword ? 'text' : 'password'}
                 placeholder="Confirm your password"
                 required
@@ -379,6 +417,7 @@ const ExpenseTrackerRegistration = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
+                onClick={handleRegister}
                 sx={{
                   mt: 1,
                   py: 1,       // reduced padding
