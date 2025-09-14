@@ -11,7 +11,7 @@ const AuthenticationRoutes = {
     children: [
         {
             index: true,
-            element: <Navigate to="/register" replace />
+            element: <Navigate to="/logIn" replace />
         },
         {
             path: 'register',

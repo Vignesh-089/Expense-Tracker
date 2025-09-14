@@ -24,6 +24,7 @@ import {
 import { styled, keyframes } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import API from '../../utils/api';
+import { showToast } from '../../utils/toast-Components';
 
 // Keyframe animations
 const backgroundShift = keyframes`
@@ -274,6 +275,7 @@ const LogIn = () => {
       }
 
       console.log("Login successful:", res.data);
+      showToast("success", "Login Successfully");
 
       navigate("/home");
     } catch (error) {

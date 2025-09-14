@@ -78,7 +78,7 @@ const ExpenseTrackerRegistration = () => {
       const result = await API.post("/auth/register", payload);
       setFormData(result)
       console.log("Registration successful:", result);
-      showToast("Registration Successfull")
+      showToast("success", "Registration Successful");
       navigate("/login");
     } catch (error) {
       console.error("Registration Failed:", error.response?.data || error.message);
